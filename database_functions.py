@@ -1,6 +1,7 @@
 import firebase_admin
 from firebase_admin import credentials
 from firebase_admin import firestore
+import utility_functions as UF
 
 
 def upload_score_data(home_score, away_score, game_time, period, away_team_name, sport, event_start, event_end, varsity, gender):
@@ -18,6 +19,18 @@ def upload_score_data(home_score, away_score, game_time, period, away_team_name,
     :param gender: Either "m" or "w"
     :return: none
     """
+    # Type checking:
+    UF.check_type(home_score, "int")
+    UF.check_type(away_score, "int")
+    UF.check_type(game_time, "str")
+    UF.check_type(period, "int")
+    UF.check_type(away_team_name, "str")
+    UF.check_type(sport, "str")
+    UF.check_type(event_start, "str")
+    UF.check_type(event_end, "str")
+    UF.check_type(varsity, "bool")
+    UF.check_type(gender, "str")
+
     # Data manipulations:
     if varsity:
         collection_name = "varsity-scores"
