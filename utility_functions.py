@@ -3,7 +3,7 @@ def check_type(item, expected_type):
     Checks a object to make sure that it is a certain type
     :param item: any type
     :param expected_type: string (ex:"str")
-    :return: none
+    :return: type
     """
     item_type = str(type(item))
     if "str" in expected_type.lower() and item_type == "<class 'str'>":
@@ -22,6 +22,7 @@ def check_type(item, expected_type):
         pass
     else:
         raise Exception("{a} isn't a {b}".format(a=object, b=expected_type))
+    return item_type
 
 
 # Testing
