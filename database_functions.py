@@ -52,7 +52,6 @@ def upload_score_data(home_score, away_score, game_time, period, away_team_name,
         "game_time": game_time,
         "home_score": home_score,
         "away_team_name": away_team_name,
-
     })
 
 
