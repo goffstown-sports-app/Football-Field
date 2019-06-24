@@ -57,6 +57,3 @@ def upload_score_data(home_score, away_score, game_time, period, away_team_name,
 
 # Testing:
 # upload_score_data(4, 1, "00:02:45", 2, "Jaguars", "soccer", "Now", "Later", True, "m")
-
-
-
