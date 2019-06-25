@@ -30,8 +30,11 @@ def upload_score_data(home_score, away_score, game_time, period, away_team_name,
     UF.check_type(event_end, "str")
     UF.check_type(varsity, "bool")
     UF.check_type(gender, "str")
-    if gender.lower() is not "f" or gender.lower() is not "m":
+    if gender.lower() == "f" or gender.lower() == "m":
+        pass
+    else:
         raise Exception("Gender isn’t f or m")
+
 
     # Data manipulations:
     if varsity:
