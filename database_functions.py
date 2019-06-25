@@ -2,6 +2,7 @@ import firebase_admin
 from firebase_admin import credentials
 from firebase_admin import firestore
 import utility_functions as UF
+import json
 
 
 def upload_score_data(home_score, away_score, game_time, period, away_team_name, sport, event_start, event_end, varsity, gender):
@@ -56,6 +57,22 @@ def upload_score_data(home_score, away_score, game_time, period, away_team_name,
         "home_score": home_score,
         "away_team_name": away_team_name,
     })
+
+    # Writing last reading
+    with open("last_write.json", "w") as last_write_json:
+        data = [
+            home_score,
+            away_score,
+            game_time,
+            period,
+            away_team_name,
+            sport,
+            event_start,
+            event_end,
+            varsity,
+            gender
+        ]
+        json.dump(data, last_write_json)
 
 
 # Testing:
