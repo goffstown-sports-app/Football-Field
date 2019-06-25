@@ -77,3 +77,73 @@ def upload_score_data(home_score, away_score, game_time, period, away_team_name,
 
 # Testing:
 # upload_score_data(4, 1, "00:02:45", 2, "Jaguars", "soccer", "Now", "Later", True, "m")
+
+def init_database(list_of_sports):
+    """
+    Initializes the firestore database
+    :param list_of_sports: list of supported sports. Each sport should be marked like "V-M-Sport"
+    :return: none
+    """
+    # Check types:
+    UF.check_type(list_of_sports, "list")
+    for sport in list_of_sports:
+        items = sport.split("-")
+        if len(items) != 3:
+            raise Exception("It seems as though the sports came in wrong from the init_database function")
+        if items[0].lower() != "v" and items[0].lower() != "jv":
+            raise Exception("It seems as though the varsity sports came in wrong for the init_database function")
+        if items[1].lower() != "f" and items[1].lower() != "m":
+            raise Exception("Item seems as though the gender came in wrong for the init_database function")
+
+    # Firestore interactions:
+    cred = credentials.Certificate("firestore_creds.json")
+    firebase_admin.initialize_app(cred)
+    db = firestore.client()
+    for sport in list_of_sports:
+        items = sport.split("-")
+        if items[0].lower() == "v":
+            collection_name = "varsity-scores"
+        else:
+            collection_name = "jv-scores"
+        document_name = items[1].upper() + "-" + items[2].lower()
+        doc_ref = db.collection(collection_name).document(document_name)
+        doc_ref.set({
+            "away_score": 0,
+            "home_score": 0,
+            "away_team_name": "",
+            "currently_playing": False,
+            "game_time": "",
+            "period": 0,
+        })
+
+
+# Testing:
+init_database([
+    "V-M-Soccer",
+    "JV-M-Soccer",
+    "V-F-Soccer",
+    "JV-F-Soccer",
+    "V-M-Football",
+    "JV-M-Football",
+    "V-M-Baseball",
+    "JV-M-Baseball",
+    "V-F-Softball",
+    "JV-F-Softball",
+    "V-F-Field_Hockey",
+    "JV-F-Field_Hockey",
+    "V-M-Volleyball",
+    "JV-M-Volleyball",
+    "V-F-Volleyball",
+    "JV-F-Volleyball",
+    "V-M-Basketball",
+    "JV-M-Basketball",
+    "V-F-Basketball",
+    "JV-F-Basketball",
+    "V-M-Lacrosse",
+    "JV-M-Lacrosse",
+    "V-F-Lacrosse",
+    "JV-F-Lacrosse"
+])
+
+
+
