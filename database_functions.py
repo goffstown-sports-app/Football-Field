@@ -1,6 +1,6 @@
 import firebase_admin
 from firebase_admin import credentials
-from firebase_admin import firestore
+from firebase_admin import db
 import utility_functions as UF
 import json
 
@@ -36,26 +36,21 @@ def upload_score_data(home_score, away_score, game_time, period, away_team_name,
     else:
         raise Exception("Gender isn’t f or m")
 
-
     # Data manipulations:
+    sport_ref = gender.upper() + sport.lower()
     if varsity:
-        collection_name = "varsity-scores"
-    elif not varsity:
-        collection_name = "jv-scores"
-    document_name = gender.upper() + "-" + sport.lower()
+        child_name =
 
-    # Firestore interactions:
+    # Realtime Database interactions:
     cred = credentials.Certificate("firestore_creds.json")
-    firebase_admin.initialize_app(cred)
-    db = firestore.client()
-    doc_ref = db.collection(collection_name).document(document_name)
-    doc_ref.set({
-        "period": period,
-        "away_score": away_score,
-        "currently_playing": True,
-        "game_time": game_time,
-        "home_score": home_score,
-        "away_team_name": away_team_name,
+    firebase_admin.initialize_app(cred, {"databaseURL": "https://ghs-app-5a0ba.firebaseio.com"})
+    ref = db.reference("restricted_access/secret_document")
+    if varsity:
+        child_ref = ref.child("varsity-scores")
+    else:
+        child_ref = ref.child("jv-scores")
+    child_ref.set({
+
     })
 
     # Writing last reading
