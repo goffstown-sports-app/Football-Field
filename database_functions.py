@@ -39,18 +39,23 @@ def upload_score_data(home_score, away_score, game_time, period, away_team_name,
     # Data manipulations:
     sport_ref = gender.upper() + sport.lower()
     if varsity:
-        child_name =
+        child_name = "varsity-scores/" + gender.upper() + "-" + sport.lower()
+    else:
+        child_name = "jv-scores/" + gender.upper() + "-" + sport.lower()
 
     # Realtime Database interactions:
     cred = credentials.Certificate("firestore_creds.json")
     firebase_admin.initialize_app(cred, {"databaseURL": "https://ghs-app-5a0ba.firebaseio.com"})
-    ref = db.reference("restricted_access/secret_document")
-    if varsity:
-        child_ref = ref.child("varsity-scores")
-    else:
-        child_ref = ref.child("jv-scores")
+    ref = db.reference("scores")
+    child_ref = ref.child(child_name)
     child_ref.set({
-
+        "home-score": home_score,
+        "away-score": away_score,
+        "game-time": game_time,
+        "period": period,
+        "away-team-name": away_team_name,
+        "event-start": event_start,
+        "event-end": event_end
     })
 
     # Writing last reading
