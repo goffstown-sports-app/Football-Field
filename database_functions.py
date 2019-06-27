@@ -117,32 +117,32 @@ def init_database(list_of_sports):
 
 
 # Testing:
-init_database([
-    "V-M-Soccer",
-    "JV-M-Soccer",
-    "V-F-Soccer",
-    "JV-F-Soccer",
-    "V-M-Football",
-    "JV-M-Football",
-    "V-M-Baseball",
-    "JV-M-Baseball",
-    "V-F-Softball",
-    "JV-F-Softball",
-    "V-F-Field_Hockey",
-    "JV-F-Field_Hockey",
-    "V-M-Volleyball",
-    "JV-M-Volleyball",
-    "V-F-Volleyball",
-    "JV-F-Volleyball",
-    "V-M-Basketball",
-    "JV-M-Basketball",
-    "V-F-Basketball",
-    "JV-F-Basketball",
-    "V-M-Lacrosse",
-    "JV-M-Lacrosse",
-    "V-F-Lacrosse",
-    "JV-F-Lacrosse"
-])
+# init_database([
+#     "V-M-Soccer",
+#     "JV-M-Soccer",
+#     "V-F-Soccer",
+#     "JV-F-Soccer",
+#     "V-M-Football",
+#     "JV-M-Football",
+#     "V-M-Baseball",
+#     "JV-M-Baseball",
+#     "V-F-Softball",
+#     "JV-F-Softball",
+#     "V-F-Field_Hockey",
+#     "JV-F-Field_Hockey",
+#     "V-M-Volleyball",
+#     "JV-M-Volleyball",
+#     "V-F-Volleyball",
+#     "JV-F-Volleyball",
+#     "V-M-Basketball",
+#     "JV-M-Basketball",
+#     "V-F-Basketball",
+#     "JV-F-Basketball",
+#     "V-M-Lacrosse",
+#     "JV-M-Lacrosse",
+#     "V-F-Lacrosse",
+#     "JV-F-Lacrosse"
+# ])
 
 
 
