@@ -37,7 +37,6 @@ def upload_score_data(home_score, away_score, game_time, period, away_team_name,
         raise Exception("Gender isn’t f or m")
 
     # Data manipulations:
-    sport_ref = gender.upper() + sport.lower()
     if varsity:
         child_name = "varsity-scores/" + gender.upper() + "-" + sport.lower()
     else:
