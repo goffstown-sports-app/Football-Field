@@ -1,6 +1,6 @@
 import firebase_admin
 from firebase_admin import credentials
-from firebase_admin import firestore
+from firebase_admin import db
 import utility_functions as UF
 import json
 
@@ -36,26 +36,25 @@ def upload_score_data(home_score, away_score, game_time, period, away_team_name,
     else:
         raise Exception("Gender isn’t f or m")
 
-
     # Data manipulations:
     if varsity:
-        collection_name = "varsity-scores"
-    elif not varsity:
-        collection_name = "jv-scores"
-    document_name = gender.upper() + "-" + sport.lower()
+        child_name = "varsity-scores/" + gender.upper() + "-" + sport.lower()
+    else:
+        child_name = "jv-scores/" + gender.upper() + "-" + sport.lower()
 
-    # Firestore interactions:
+    # Realtime Database interactions:
     cred = credentials.Certificate("firestore_creds.json")
-    firebase_admin.initialize_app(cred)
-    db = firestore.client()
-    doc_ref = db.collection(collection_name).document(document_name)
-    doc_ref.set({
+    firebase_admin.initialize_app(cred, {"databaseURL": "https://ghs-app-5a0ba.firebaseio.com"})
+    ref = db.reference("scores")
+    child_ref = ref.child(child_name)
+    child_ref.set({
+        "home-score": home_score,
+        "away-score": away_score,
+        "game-time": game_time,
         "period": period,
-        "away_score": away_score,
-        "currently_playing": True,
-        "game_time": game_time,
-        "home_score": home_score,
-        "away_team_name": away_team_name,
+        "away-team-name": away_team_name,
+        "event-start": event_start,
+        "event-end": event_end
     })
 
     # Writing last reading
@@ -97,28 +96,27 @@ def init_database(list_of_sports):
 
     # Firestore interactions:
     cred = credentials.Certificate("firestore_creds.json")
-    firebase_admin.initialize_app(cred)
-    db = firestore.client()
+    firebase_admin.initialize_app(cred, {"databaseURL": "https://ghs-app-5a0ba.firebaseio.com"})
+    ref = db.reference("scores")
     for sport in list_of_sports:
         items = sport.split("-")
         if items[0].lower() == "v":
-            collection_name = "varsity-scores"
+            child_name = "varsity-scores/" + items[1].upper() + "-" + items[2].lower()
         else:
-            collection_name = "jv-scores"
-        document_name = items[1].upper() + "-" + items[2].lower()
-        doc_ref = db.collection(collection_name).document(document_name)
-        doc_ref.set({
-            "away_score": 0,
-            "home_score": 0,
-            "away_team_name": "",
-            "currently_playing": False,
-            "game_time": "",
+            child_name = "jv-scores/" + items[1].upper() + "-" + items[2].lower()
+        child_ref = ref.child(child_name)
+        child_ref.set({
+            "home-score": 0,
+            "away-score": 0,
+            "game-time": "00:00:00",
             "period": 0,
+            "away-team-name": "",
+            "event-start": "",
+            "event-end": ""
         })
 
 
 # Testing:
-"""
 init_database([
     "V-M-Soccer",
     "JV-M-Soccer",
@@ -145,7 +143,6 @@ init_database([
     "V-F-Lacrosse",
     "JV-F-Lacrosse"
 ])
-"""
 
 
 
