@@ -97,28 +97,27 @@ def init_database(list_of_sports):
 
     # Firestore interactions:
     cred = credentials.Certificate("firestore_creds.json")
-    firebase_admin.initialize_app(cred)
-    db = firestore.client()
+    firebase_admin.initialize_app(cred, {"databaseURL": "https://ghs-app-5a0ba.firebaseio.com"})
+    ref = db.reference("scores")
     for sport in list_of_sports:
         items = sport.split("-")
         if items[0].lower() == "v":
-            collection_name = "varsity-scores"
+            child_name = "varsity-scores/" + items[1].upper() + "-" + items[2].lower()
         else:
-            collection_name = "jv-scores"
-        document_name = items[1].upper() + "-" + items[2].lower()
-        doc_ref = db.collection(collection_name).document(document_name)
-        doc_ref.set({
-            "away_score": 0,
-            "home_score": 0,
-            "away_team_name": "",
-            "currently_playing": False,
-            "game_time": "",
+            child_name = "jv-scores/" + items[1].upper() + "-" + items[2].lower()
+        child_ref = ref.child(child_name)
+        child_ref.set({
+            "home-score": 0,
+            "away-score": 0,
+            "game-time": "00:00:00",
             "period": 0,
+            "away-team-name": "",
+            "event-start": "",
+            "event-end": ""
         })
 
 
 # Testing:
-"""
 init_database([
     "V-M-Soccer",
     "JV-M-Soccer",
@@ -145,7 +144,6 @@ init_database([
     "V-F-Lacrosse",
     "JV-F-Lacrosse"
 ])
-"""
 
 
 
