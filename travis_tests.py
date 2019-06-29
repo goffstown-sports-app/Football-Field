@@ -36,7 +36,7 @@ class TravisTests(unittest.TestCase):
         Tests the run_command function
         """
         result = UF.run_command("echo string that is printed", True)
-        self.assertEqual(result, "string that is printed")
+        self.assertEqual(result, "string that is printed\n")
 
 
 if __name__ == '__main__':
