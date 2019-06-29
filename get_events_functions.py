@@ -22,12 +22,19 @@ def get_events_for_day(day, month, year):
     # Cleaning output
     strip_l1 = command.strip(" ").strip("][")
     list_form = strip_l1.split("{")
-    cleaned_elements = []
+    cleaned_events = []
     for event in list_form:
         strip_l2 = event.strip(",").strip("}")
-        cleaned_elements.append(strip_l2)
-        print("\n" + strip_l2)
-    return cleaned_elements
+        list_form2 = strip_l2.split(",")
+        cleaned_dict = {}
+        for item in list_form2:
+            key_value_pair = item.split(":")
+            key_value_pair.pop(0)
+            clean_key = key_value_pair[0].strip('"')
+            clean_value = key_value_pair[1].strip('"')
+            
+        cleaned_events.append(cleaned_dict)
+    return cleaned_events
 
 
 # Testing:
