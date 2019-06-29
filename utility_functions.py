@@ -36,6 +36,7 @@ def check_type(item, expected_type):
 # check_type(True, "bool")
 # check_type("testing testing", "str")
 
+
 def run_command(shell_command, get_output):
     """
     Will run a shell command using the subprocess module
