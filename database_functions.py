@@ -143,6 +143,3 @@ def init_database(list_of_sports):
 #     "V-F-Lacrosse",
 #     "JV-F-Lacrosse"
 # ])
-
-
-
