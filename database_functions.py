@@ -146,7 +146,7 @@ def init_database(list_of_sports):
 # ])
 
 
-def upload_day_events(home, sport_name, cancelled, postponed, event_time, away_team_name, location, event_name):
+def upload_day_events(home, sport_name, cancelled, postponed, event_time, away_team_name, location, event_name, event_number):
     """
     Uploads all the events for the day to the Realtime database
     :param home: event is home (bool)
@@ -157,6 +157,7 @@ def upload_day_events(home, sport_name, cancelled, postponed, event_time, away_t
     :param away_team_name: name of the away team (str)
     :param location: name of the location (str)
     :param event_name: name of the event (str)
+    :param event_number: number of event (int)
     :return: none
     """
     # Type Checking:
@@ -168,6 +169,7 @@ def upload_day_events(home, sport_name, cancelled, postponed, event_time, away_t
     UF.check_type(away_team_name, "str")
     UF.check_type(location, "str")
     UF.check_type(event_name, "str")
+    UF.check_type(event_number, "int")
 
     # Data manipulation:
     datetime_now = datetime.now()
@@ -179,7 +181,7 @@ def upload_day_events(home, sport_name, cancelled, postponed, event_time, away_t
     cred = credentials.Certificate("firestore_creds.json")
     firebase_admin.initialize_app(cred, {"databaseURL": "https://ghs-app-5a0ba.firebaseio.com"})
     ref = db.reference("events")
-    child_ref = ref.child("tday_events")
+    child_ref = ref.child("tday_events/event_" + str(event_number))
     child_ref.set({
         "current-year": current_year,
         "current-month": current_month,
