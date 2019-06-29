@@ -35,3 +35,47 @@ def check_type(item, expected_type):
 # check_type((), "tuple")
 # check_type(True, "bool")
 # check_type("testing testing", "str")
+
+
+def safe_cast(item, zeros_to_ones):
+    """
+    Safely cast an item.
+    :param item: the item that will casted
+    :param zeros_to_ones: if the string is a 0 or a 1, it will be casted as it's corresponding bool. (bool)
+    :return: new_item
+    """
+    worked = False
+    if zeros_to_ones:
+        if item == "0":
+            worked = True
+            return False
+        elif item == "1":
+            worked = True
+            return True
+    try:
+        casted_item = tuple(item)
+        worked = True
+    except ValueError:
+        pass
+    try:
+        worked = True
+        return int(item)
+    except ValueError:
+        pass
+    try:
+        worked = True
+        return float(item)
+    except ValueError:
+        pass
+    try:
+        worked = True
+        return list(item)
+    except ValueError:
+        pass
+    try:
+        worked = True
+        return bool(item)
+    except ValueError:
+        pass
+    if not worked:
+        return item
