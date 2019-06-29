@@ -1,3 +1,5 @@
+import subprocess
+
 def check_type(item, expected_type):
     """
     Checks a object to make sure that it is a certain type
@@ -33,3 +35,27 @@ def check_type(item, expected_type):
 # check_type((), "tuple")
 # check_type(True, "bool")
 # check_type("testing testing", "str")
+
+def run_command(shell_command, get_output):
+    """
+    Will run a shell command using the subprocess module
+    :param shell_command: The command that is going to be ran (str)
+    :param get_output: Will capture the output of the command
+    :return: the command output
+    """
+    # Type checking:
+    check_type(shell_command, "str")
+    check_type(get_output, "bool")
+
+    # Main:
+    command_parts = shell_command.split(" ")
+    subprocess_command = subprocess.run(command_parts, capture_output=get_output)
+    if get_output:
+        string_command = str(subprocess_command)
+        stdout_position = string_command.find("stdout")
+        stderr_position = string_command.find("stderr")
+        relative_string = string_command[stdout_position:stderr_position]
+        final_string = relative_string[relative_string.find("'") + 1:-3]
+        return final_string
+    else:
+        return subprocess_command
