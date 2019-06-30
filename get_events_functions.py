@@ -40,6 +40,36 @@ def get_events_for_day(day, month, year):
     resp = s.send(prepped)
     respJson = json.loads(resp.content)
 
+    # Cleaning information:
+    if len(respJson) == 0:
+        return None
+    else:
+        for event in respJson:
+            if event["isCancelled"] == 0:
+                cancelled = False
+            elif event["isCancelled"] == 1:
+                cancelled = True
+            if "boys" in event["theTitle"].lower():
+                gender = "m"
+            elif "girls" in event["theTitle"].lower():
+                gender = "g"
+            if "varsity" in event["theTitle"].lower():
+                varsity = True
+            elif "junior varsity" in event["theTitle"].lower():
+                varsity = False
+            if "middle" in event["theTitle"].lower():
+                ghs_sport = False
+            elif "middle" not in event["theTitle"].lower():
+                ghs_sport = True
+            if event["homeOrAway"] == 1:
+                home = True
+            elif event["homeOrAway"] == 0:
+                home = False
+            location = event["thePlace"].strip("@").strip()
+            if "(H)" in event["thedate"]:
+                normal_time = event["thedate"].strip("(H)").strip()
+
+
 
 # Testing:
-get_events_for_day(20, 6, 2019)
+get_events_for_day(9, 5, 2019)
