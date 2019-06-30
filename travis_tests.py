@@ -1,5 +1,6 @@
 import unittest
 import utility_functions as UF
+from datetime import datetime
 
 
 class TravisTests(unittest.TestCase):
@@ -22,6 +23,7 @@ class TravisTests(unittest.TestCase):
         list_result = UF.check_type([], "list")
         dict_result = UF.check_type({}, "dict")
         bool_result = UF.check_type(True, "bool")
+        datetime_result = UF.check_type(datetime(2019, 6, 12), "datetime")
         self.assertEqual(string_result, "<class 'str'>")
         self.assertEqual(int_result, "<class 'int'>")
         self.assertEqual(float_result, "<class 'float'>")
