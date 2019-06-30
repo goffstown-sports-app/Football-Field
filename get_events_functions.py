@@ -44,7 +44,9 @@ def get_events_for_day(day, month, year):
     if len(respJson) == 0:
         return None
     else:
+        event_number = 0
         for event in respJson:
+            event_number += 1
             if event["isCancelled"] == 0:
                 cancelled = False
             elif event["isCancelled"] == 1:
@@ -66,10 +68,13 @@ def get_events_for_day(day, month, year):
             elif event["homeOrAway"] == 0:
                 home = False
             location = event["thePlace"].strip("@").strip()
-            if "(H)" in event["thedate"]:
-                normal_time = event["thedate"].strip("(H)").strip()
-                datetime_from = UF.normal_time_to_datetime(normal_time, day, month, year)
-                hour = datetime_from.hour
+            thedate_elements = event["thedate"].split("vs")
+            normal_time = thedate_elements[0].strip("(H)").strip("(A)").strip()
+            datetime_from = UF.normal_time_to_datetime(normal_time, day, month, year)
+            hour = datetime_from.hour
+            away_team_name = thedate_elements[1].strip()
+            sport_name = event["theTitle"].strip("Boys").strip("Girls").strip("Junior").strip("Varsity").strip("Middle").strip()
+
 
 
 # Testing:
