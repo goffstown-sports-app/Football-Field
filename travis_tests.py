@@ -31,6 +31,7 @@ class TravisTests(unittest.TestCase):
         self.assertEqual(list_result, "<class 'list'>")
         self.assertEqual(dict_result, "<class 'dict'>")
         self.assertEqual(bool_result, "<class 'bool'>")
+        self.assertEqual(datetime_result, "<class 'datetime.datetime'>")
 
 if __name__ == '__main__':
     unittest.main()
