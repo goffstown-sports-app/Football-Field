@@ -78,4 +78,4 @@ def get_events_for_day(day, month, year):
 
 
 # Testing:
-get_events_for_day(9, 5, 2019)
+# get_events_for_day(9, 5, 2019)
