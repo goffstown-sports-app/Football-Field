@@ -68,6 +68,9 @@ def get_events_for_day(day, month, year):
             location = event["thePlace"].strip("@").strip()
             if "(H)" in event["thedate"]:
                 normal_time = event["thedate"].strip("(H)").strip()
+                datetime_from = UF.normal_time_to_datetime(normal_time, day, month, year)
+                hour = datetime_from.hour
+
 
 
 
