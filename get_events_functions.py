@@ -72,7 +72,5 @@ def get_events_for_day(day, month, year):
                 hour = datetime_from.hour
 
 
-
-
 # Testing:
 get_events_for_day(9, 5, 2019)
