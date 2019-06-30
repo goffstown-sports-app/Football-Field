@@ -62,4 +62,4 @@ def normal_time_to_datetime(normal_time, day, month, year):
 
 
 # Testing:
-print(normal_time_to_datetime("5:23PM", 4, 6 ,2004))
+# print(normal_time_to_datetime("5:23PM", 4, 6 ,2004))
