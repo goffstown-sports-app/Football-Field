@@ -30,13 +30,6 @@ class TravisTests(unittest.TestCase):
         self.assertEqual(dict_result, "<class 'dict'>")
         self.assertEqual(bool_result, "<class 'bool'>")
 
-    def test_run_command(self):
-        """
-        Tests the run_command function
-        """
-        result = UF.run_command("echo string that is printed", True)
-        self.assertEqual(result, "string that is printed\\n")
-
 
 if __name__ == '__main__':
     unittest.main()
