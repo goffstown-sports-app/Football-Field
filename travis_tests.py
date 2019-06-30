@@ -30,6 +30,19 @@ class TravisTests(unittest.TestCase):
         self.assertEqual(dict_result, "<class 'dict'>")
         self.assertEqual(bool_result, "<class 'bool'>")
 
+    def test_safe_cast(self):
+        """
+        Tests the safe_cast function
+        """
+        string_result = UF.safe_cast("string", False)
+        number_result = UF.safe_cast("0", False)
+        zero_to_false_result = UF.safe_cast("0", True)
+        one_to_true_result = UF.safe_cast("1", True)
+        self.assertEqual(string_result, "string")
+        self.assertEqual(number_result, 0)
+        self.assertEqual(zero_to_false_result, False)
+        self.assertEqual(one_to_true_result, True)
+
 
 if __name__ == '__main__':
     unittest.main()
