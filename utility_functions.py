@@ -53,11 +53,6 @@ def safe_cast(item, zeros_to_ones):
             worked = True
             return True
     try:
-        casted_item = tuple(item)
-        worked = True
-    except ValueError:
-        pass
-    try:
         worked = True
         return int(item)
     except ValueError:
@@ -65,11 +60,6 @@ def safe_cast(item, zeros_to_ones):
     try:
         worked = True
         return float(item)
-    except ValueError:
-        pass
-    try:
-        worked = True
-        return list(item)
     except ValueError:
         pass
     try:
