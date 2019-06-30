@@ -59,11 +59,6 @@ def safe_cast(item, zeros_to_ones):
         pass
     try:
         worked = True
-        return float(item)
-    except ValueError:
-        pass
-    try:
-        worked = True
         return bool(item)
     except ValueError:
         pass
