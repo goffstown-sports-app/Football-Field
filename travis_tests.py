@@ -30,7 +30,6 @@ class TravisTests(unittest.TestCase):
         self.assertEqual(dict_result, "<class 'dict'>")
         self.assertEqual(bool_result, "<class 'bool'>")
 
-
     def test_run_command(self):
         """
         Tests the run_command function
