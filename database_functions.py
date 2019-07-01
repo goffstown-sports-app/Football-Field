@@ -80,7 +80,7 @@ def upload_score_data(home_score, away_score, game_time, period, away_team_name,
 
 def init_database(list_of_sports):
     """
-    Initializes the firestore database
+    Initializes the firebase realtime database
     :param list_of_sports: list of supported sports. Each sport should be marked like "V-M-Sport"
     :return: none
     """
